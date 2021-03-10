@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import './datatype/section';
 import { Section } from './datatype/datatypes';
 
 @Component({
@@ -10,5 +9,5 @@ import { Section } from './datatype/datatypes';
 export class AppComponent {
   title = 'cloud-init-gen';
 
-  sections = [new Section("test")];
+  sections = [new Section("test", ["all"])];
 }

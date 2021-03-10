@@ -1,12 +1,13 @@
 import { Section } from './section';
+import { Property } from './property';
 
 // DEFINITION: https://cloudinit.readthedocs.io/en/latest/topics/modules.html#users-and-groups
 export class UsersSection extends Section {
   private keepDefault: boolean = false;
-  protected supported_distros = ["all"];
 
   constructor() {
-    super("users");
+    // section type, supported_distros
+    super("users", ["all"]);
   }
 
   // add in the distro-default user if enabled
@@ -31,5 +32,16 @@ class User {
   no_create_home?: boolean; // Optional. Do not create home directory. Default: false
   no_log_init?: boolean; // Optional. Do not initialize lastlog and faillog for user. Default: false
   no_user_group?: boolean // Optional. Do not create group named after user. Default: false
+  // TODO complete list
 
+  // Returns an object representation of the class.
+  // if verbose is set and true, this returns all properties filled with default values.
+  getObj(verbose?: boolean): object {
+    return {}; // TODO pull list of properties from decorators and then build a obj from values (and defaults if verbose)
+  }
+
+  getProperties(): Array<Property> {
+    // TODO pull list of properties from decorators
+    return [];
+  }
 }
