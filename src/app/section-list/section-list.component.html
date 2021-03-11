@@ -1,12 +1,12 @@
 <div cdkDropList class="section-list" (cdkDropListDropped)="drop($event)">
   <div class="section-list-box" *ngFor="let section of sections" cdkDrag cdkDragLockAxis="y">
     {{section.getType()}}
-    <!-- TODO add delete icon and logic -->
+    <!-- TODO push up order changes to main component -->
     <div class="box-controls">
-      <div class="section-list-delete" (click)="deleteSection($event)">
+      <div class="cursor-pointer" (click)="deleteSection($event)">
         <i class="far fa-trash-alt"></i>
       </div>
-      <div class="section-list-handle" cdkDragHandle>
+      <div class="cursor-grab" cdkDragHandle>
         <i class="fas fa-arrows-alt-v"></i>
       </div>
     </div>

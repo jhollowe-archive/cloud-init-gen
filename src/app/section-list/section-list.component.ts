@@ -5,7 +5,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-section-list',
   templateUrl: './section-list.component.html',
-  styleUrls: ['./section-list.component.css']
+  styleUrls: ['./section-list.component.scss']
 })
 export class SectionListComponent {
 
