@@ -21,17 +21,27 @@
   font-size: 14px;
 }
 
-.section-list-handle {
-  position: relative;
-  right: 10px;
-  color: #ccc;
-  cursor: move;
-  width: 15px;
-  height: 15px;
+.box-controls{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.section-list-handle svg{
-  position: absolute;
+.box-controls > div{
+  position: relative;
+  margin: 0 8px;
+  color: #ccc;
+  /* width: 25px;
+  height: 25px; */
+  font-size: 1rem;
+}
+
+.section-list-handle {
+  cursor: grab;
+}
+
+.section-list-delete {
+  cursor: pointer;
 }
 
 .cdk-drag-preview {
@@ -44,6 +54,7 @@
 
 .cdk-drag-placeholder {
   opacity: 0;
+  cursor: grabbing;
 }
 
 .cdk-drag-animating {

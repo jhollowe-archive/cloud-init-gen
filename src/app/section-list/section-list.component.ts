@@ -12,12 +12,17 @@ export class SectionListComponent {
   @Input() sections!: Array<Section>;
   @Input() types!: Array<string>;
   @Output() newSection = new EventEmitter<string>();
+  @Output() removeSection = new EventEmitter<Section>();
 
   selectedType!: string;
 
   addSection() {
     console.debug("adding new section of type", this.selectedType);
     this.newSection.emit(this.selectedType);
+  }
+
+  deleteSection(event: MouseEvent) {
+    console.log("removing section", event);
   }
 
   drop(event: CdkDragDrop<string[]>) {
