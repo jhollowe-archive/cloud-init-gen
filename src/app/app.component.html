@@ -8,6 +8,7 @@
   <div class="row">
     <div class="col">
       selector
+      <app-section-list [sections]="sections" [types]="types" (newSection)="addNewSection($event)"></app-section-list>
     </div>
     <div class="col">
       settings
