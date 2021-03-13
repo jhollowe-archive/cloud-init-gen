@@ -1,18 +1,25 @@
 import { dump, DumpOptions } from 'js-yaml';
+import { v4 as uuidv4 } from 'uuid';
 
 export class Section {
   private type: string;
   protected data: any;
   protected supported_distros: Array<string> = ["none"];
+  protected readonly uuid: string;
 
   constructor(type: string, supported_distros: any) {
     this.type = type;
     this.supported_distros = supported_distros;
     this.data = {};
+    this.uuid = uuidv4();
   }
 
   public getType(): string {
     return this.type;
+  }
+
+  public getUuid(): string {
+    return this.uuid;
   }
 
   public getSupportedDistros(): Array<string> {
