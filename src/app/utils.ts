@@ -3,9 +3,9 @@ import { Property } from './datatype/property';
 import { Section, SectionData } from './datatype/section';
 
 // Decorator for section properties
-export function propertyData(default_value: any, description: string, optional: boolean = true) {
+export function propertyData(default_value: any, description: string, optional: boolean = true, mut_exclusive: Array<string> = []) {
   return function (target: SectionData, propertyKey: string) {
-    let newProp = new Property(propertyKey, default_value, description, optional);
+    let newProp = new Property(propertyKey, default_value, description, optional, mut_exclusive);
     target.addPropertyData(newProp);
   }
 }

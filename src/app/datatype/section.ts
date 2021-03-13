@@ -54,4 +54,8 @@ export class SectionData {
     if (!this._propertyData) this._propertyData = new PropertyGroup();
     this._propertyData.add(newData);
   }
+
+  getProperty(name: string): Property | undefined {
+    return this._propertyData.getProp(name);
+  }
 }
