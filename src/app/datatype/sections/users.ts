@@ -1,6 +1,6 @@
 import { Section, SectionData } from './section';
-import { propertyData } from '../utils';
-import { textbox } from './textbox';
+import { propertyData } from '../../utils';
+import { textbox } from '../textbox';
 
 // DEFINITION: https://cloudinit.readthedocs.io/en/latest/topics/modules.html#users-and-groups
 export class UsersSection extends Section {

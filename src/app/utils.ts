@@ -1,6 +1,6 @@
 
 import { Property } from './datatype/property';
-import { Section, SectionData } from './datatype/section';
+import { Section, SectionData } from './datatype/sections/section';
 
 // Decorator for section properties
 export function propertyData(default_value: any, description: string, optional: boolean = true, mut_exclusive: Array<string> = []) {
