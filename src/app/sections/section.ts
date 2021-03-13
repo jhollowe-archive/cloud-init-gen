@@ -1,13 +1,15 @@
 import { TitleCasePipe } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { dump, DumpOptions } from 'js-yaml';
 import { v4 as uuidv4 } from 'uuid';
-import { Property, PropertyGroup } from '../property';
+import { Property, PropertyGroup } from '../datatypes';
 
 export class Section {
   private type: string;
   protected data: any;
   protected supported_distros: Array<string> = ["none"];
   protected readonly uuid: string;
+  // protected component: Component = SectionComponent;
 
   constructor(type: string, supported_distros: any) {
     this.type = type;
@@ -58,4 +60,13 @@ export class SectionData {
   getProperty(name: string): Property | undefined {
     return this._propertyData.getProp(name);
   }
+}
+
+@Component({
+  selector: 'app-sections-section',
+  templateUrl: './section.component.html',
+  styleUrls: ['./common.component.scss']
+})
+export class SectionComponent {
+  @Input() section!: Section;
 }

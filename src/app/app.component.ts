@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Section, UsersSection } from './datatype/datatypes';
+import { Section, UsersSection } from './sections';
 
 @Component({
   selector: 'app-root',

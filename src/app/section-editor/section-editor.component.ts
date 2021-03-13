@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Section } from '../datatype/datatypes';
+import { Section } from '../sections';
 
 @Component({
   selector: 'app-section-editor',
