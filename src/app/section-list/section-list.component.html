@@ -1,9 +1,9 @@
 <div cdkDropList class="section-list" (cdkDropListDropped)="drop($event)">
-  <div class="section-list-box" *ngFor="let section of sections" cdkDrag cdkDragLockAxis="y">
-    {{section.getType()}}
-    <!-- TODO push up order changes to main component -->
+  <div class="section-list-box" *ngFor="let section of sections" cdkDrag cdkDragLockAxis="y" (click)="select($event, section.getUuid())"
+       [ngClass]="{'current-section': editingUuid == section.getUuid()}">
+    <span>{{section.getType() | titlecase}}</span>
     <div class="box-controls">
-      <div class="cursor-pointer" (click)="deleteSection($event)">
+      <div class="cursor-pointer" (click)="delete(section.getUuid())">
         <i class="far fa-trash-alt"></i>
       </div>
       <div class="cursor-grab" cdkDragHandle>
@@ -23,5 +23,5 @@
     </mat-select>
   </mat-form-field>
   <!-- TODO style this to be vertically centered and right aligned -->
-  <button mat-raised-button [disabled]="!selectedType" (click)="addSection()">Add</button>
+  <button mat-raised-button [disabled]="!selectedType" (click)="add()">Add</button>
 </div>

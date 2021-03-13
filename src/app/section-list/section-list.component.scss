@@ -19,6 +19,14 @@
   box-sizing: border-box;
   background: white;
   font-size: 14px;
+
+  span{
+    cursor: pointer;
+  }
+}
+
+.current-section{
+  background-color: rgba(35, 174, 209, 0.185);
 }
 
 .box-controls{

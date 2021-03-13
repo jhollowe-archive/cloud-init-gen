@@ -8,10 +8,12 @@
   <div class="row">
     <div class="col">
       selector
-      <app-section-list [sections]="sections" [types]="types" (newSection)="addNewSection($event)"></app-section-list>
+      <app-section-list [sections]="sections" [types]="types" (newSection)="addNewSection($event)" (selectSection)="openSection($event)" (deleteSection)="deleteSection($event)"
+                        [editingSection]="editingSection"></app-section-list>
     </div>
     <div class="col">
       settings
+      <app-section-editor *ngIf="editingSection" [section]="editingSection" (saveSection)="saveSection($event)"></app-section-editor>
     </div>
     <div class="col">
       YAML<br>

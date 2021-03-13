@@ -9,20 +9,33 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class SectionListComponent {
 
+  @Output() newSection = new EventEmitter<string>();
+  @Output() selectSection = new EventEmitter<string>();
+  @Output() deleteSection = new EventEmitter<string>();
   @Input() sections!: Array<Section>;
   @Input() types!: Array<string>;
-  @Output() newSection = new EventEmitter<string>();
-  @Output() removeSection = new EventEmitter<Section>();
+  editingUuid!: string;
+
+  @Input()
+  set editingSection(s: Section | undefined) {
+    this.editingUuid = (s) ? s.getUuid() : "";
+  }
 
   selectedType!: string;
 
-  addSection() {
-    console.debug("adding new section of type", this.selectedType);
+  add() {
     this.newSection.emit(this.selectedType);
   }
 
-  deleteSection(event: MouseEvent) {
-    console.log("removing section", event);
+  select(event: MouseEvent, uuid: string) {
+    // only select if this event is not from an element in the box controls
+    if (event.target && !((event.target as Element).closest(".box-controls"))) {
+      this.selectSection.emit(uuid)
+    }
+  }
+
+  delete(uuid: string) {
+    this.deleteSection.emit(uuid)
   }
 
   drop(event: CdkDragDrop<string[]>) {
