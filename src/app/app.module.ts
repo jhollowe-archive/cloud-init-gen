@@ -9,13 +9,15 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { SectionEditorComponent } from './section-editor/section-editor.component';
+import { EditorDirective } from './section-editor/editor.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SectionListComponent,
-    SectionEditorComponent
+    SectionEditorComponent,
+    EditorDirective
   ],
   imports: [
     BrowserModule,

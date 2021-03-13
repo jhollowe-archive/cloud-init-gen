@@ -1,6 +1,7 @@
-import { Section, SectionData } from './section';
+import { ISectionComponent, Section, SectionData } from './section';
 import { propertyData } from '../utils';
 import { textbox } from '../datatypes';
+import { Component, Input } from '@angular/core';
 
 // DEFINITION: https://cloudinit.readthedocs.io/en/latest/topics/modules.html#users-and-groups
 export class UsersSection extends Section {
@@ -10,6 +11,7 @@ export class UsersSection extends Section {
   constructor() {
     // section type, supported_distros
     super("users", ["all"]);
+    this.component = UsersComponent;
 
     // DEBUG
     // this.addUser(new User("asdf"));
@@ -85,4 +87,13 @@ class User extends SectionData {
     super();
     this.name = name;
   }
+}
+
+@Component({
+  selector: 'app-sections-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./common.component.scss']
+})
+export class UsersComponent implements ISectionComponent {
+  @Input() section!: Section;
 }

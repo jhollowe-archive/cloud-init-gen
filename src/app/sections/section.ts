@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Type } from '@angular/core';
 import { dump, DumpOptions } from 'js-yaml';
 import { v4 as uuidv4 } from 'uuid';
 import { Property, PropertyGroup } from '../datatypes';
@@ -9,12 +9,14 @@ export class Section {
   protected data: any;
   public readonly supported_distros: Array<string> = ["none"];
   public readonly uuid: string;
+  public component: Type<ISectionComponent>;
 
   constructor(type: string, supported_distros: any) {
     this.type = type;
     this.supported_distros = supported_distros;
     this.data = {};
     this.uuid = uuidv4();
+    this.component = SectionComponent;
   }
 
   public getData(): any {
@@ -54,6 +56,12 @@ export class SectionData {
   templateUrl: './section.component.html',
   styleUrls: ['./common.component.scss']
 })
-export class SectionComponent {
+export class SectionComponent implements ISectionComponent {
   @Input() section!: Section;
+}
+
+export interface ISectionComponent {
+  //@Input()
+  section: Section;
+  //
 }
