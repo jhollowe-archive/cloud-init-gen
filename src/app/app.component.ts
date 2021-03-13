@@ -7,7 +7,6 @@ import { Section, UsersSection } from './datatype/datatypes';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'cloud-init-gen';
 
   sections = [new Section("test", ["all"]), new Section("test2", ["asdf"])];
   types = ["users", "groups", "apt"]; // TODO somehow dynamically pull types of all available sections
