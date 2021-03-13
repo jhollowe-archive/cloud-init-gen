@@ -1,3 +1,4 @@
+import { TitleCasePipe } from '@angular/common';
 import { dump, DumpOptions } from 'js-yaml';
 import { v4 as uuidv4 } from 'uuid';
 import { Property, PropertyGroup } from './property';
@@ -29,6 +30,10 @@ export class Section {
 
   public getData(): any {
     return this.data;
+  }
+
+  public getTitle(): string {
+    return new TitleCasePipe().transform(this.type);
   }
 
   public getYaml(opts?: DumpOptions): string {

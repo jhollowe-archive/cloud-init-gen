@@ -5,10 +5,15 @@ import { propertyData } from '../utils';
 // DEFINITION: https://cloudinit.readthedocs.io/en/latest/topics/modules.html#users-and-groups
 export class UsersSection extends Section {
   private keepDefault: boolean = false;
+  protected data: Array<User> = [];
 
   constructor() {
     // section type, supported_distros
     super("users", ["all"]);
+
+    // DEBUG
+    // this.addUser(new User("asdf"));
+    // this.addUser(new User("abc"));
   }
 
   // add in the distro-default user if enabled
@@ -17,7 +22,11 @@ export class UsersSection extends Section {
   }
 
   public addUser(user: User): void {
-    this.data.append(user);
+    this.data.push(user);
+  }
+
+  public getTitle() {
+    return "Users" + (this.data.length > 0 ? ": " : "") + this.data.map(val => val.name).join(", ");
   }
 }
 

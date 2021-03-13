@@ -42,6 +42,7 @@ export class AppComponent {
 
     // readjust the currently editing section
     if (this.editingSection?.getUuid() == s) {
+      // TODO instead of just going to the first section, go to max(0,deleteIndex-1)
       this.editingSection = this.sections.length > 0 ? this.sections[0] : undefined;
     }
   }
