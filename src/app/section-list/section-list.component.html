@@ -1,9 +1,8 @@
 <div cdkDropList class="section-list" (cdkDropListDropped)="drop($event)">
-  <div class="section-list-box" *ngFor="let section of sections" cdkDrag cdkDragLockAxis="y" (click)="select($event, section.getUuid())"
-       [ngClass]="{'current-section': editingUuid == section.getUuid()}">
+  <div class="section-list-box" *ngFor="let section of sections" cdkDrag cdkDragLockAxis="y" (click)="select($event, section.uuid)" [ngClass]="{'current-section': editingUuid == section.uuid}">
     <span>{{section.getTitle()}}</span>
     <div class="box-controls">
-      <div class="cursor-pointer" (click)="delete(section.getUuid())">
+      <div class="cursor-pointer" (click)="delete(section.uuid)">
         <i class="far fa-trash-alt"></i>
       </div>
       <div class="cursor-grab" cdkDragHandle>

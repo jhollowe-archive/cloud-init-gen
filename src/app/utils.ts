@@ -13,11 +13,11 @@ export function propertyData(default_value: any, description: string, optional: 
 // get which distros are supported by ALL sections (intersection)
 export function getTotalSupportedDistros(sections: Array<Section> | Section): Array<string> {
   if (sections instanceof Section) {
-    return sections.getSupportedDistros();
+    return sections.supported_distros;
   } else {
     let cumulativeDistros: Array<string> = ["all"];
     for (let section of sections) {
-      let distros = section.getSupportedDistros()
+      let distros = section.supported_distros
       // if this section supports all distros, continue
       if (distros.length === 1 && distros[0] === "all") {
         continue;
@@ -34,11 +34,11 @@ export function getTotalSupportedDistros(sections: Array<Section> | Section): Ar
 // get which distros are supported by ANY sections (union)
 export function getAllSupportedDistros(sections: Array<Section> | Section): Array<string> {
   if (sections instanceof Section) {
-    return sections.getSupportedDistros();
+    return sections.supported_distros;
   } else {
     let cumulativeDistros: Set<string> = new Set();
     for (let section of sections) {
-      section.getSupportedDistros().forEach((v) => { cumulativeDistros.add(v) });
+      section.supported_distros.forEach((v) => { cumulativeDistros.add(v) });
     }
     return Array.from(cumulativeDistros)
   }

@@ -22,11 +22,11 @@ export class AppComponent {
       section = new Section(type, ["all"]);
     }
     this.sections.push(section);
-    this.openSection(section.getUuid());
+    this.openSection(section.uuid);
   }
 
   openSection(s: string) {
-    this.editingSection = this.sections.find(value => value.getUuid() == s);
+    this.editingSection = this.sections.find(value => value.uuid == s);
 
     // TODO check for changes and prompt to save pending editor changes
   }
@@ -38,10 +38,10 @@ export class AppComponent {
 
   deleteSection(s: string) {
     // remove element
-    this.sections = this.sections.filter(val => val.getUuid() != s);
+    this.sections = this.sections.filter(val => val.uuid != s);
 
     // readjust the currently editing section
-    if (this.editingSection?.getUuid() == s) {
+    if (this.editingSection?.uuid == s) {
       // TODO instead of just going to the first section, go to max(0,deleteIndex-1)
       this.editingSection = this.sections.length > 0 ? this.sections[0] : undefined;
     }

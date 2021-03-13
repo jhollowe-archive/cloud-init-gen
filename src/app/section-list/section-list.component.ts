@@ -18,7 +18,7 @@ export class SectionListComponent {
 
   @Input()
   set editingSection(s: Section | undefined) {
-    this.editingUuid = (s) ? s.getUuid() : "";
+    this.editingUuid = (s) ? s.uuid : "";
   }
 
   selectedType!: string;

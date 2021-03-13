@@ -5,29 +5,16 @@ import { v4 as uuidv4 } from 'uuid';
 import { Property, PropertyGroup } from '../datatypes';
 
 export class Section {
-  private type: string;
+  public readonly type: string;
   protected data: any;
-  protected supported_distros: Array<string> = ["none"];
-  protected readonly uuid: string;
-  // protected component: Component = SectionComponent;
+  public readonly supported_distros: Array<string> = ["none"];
+  public readonly uuid: string;
 
   constructor(type: string, supported_distros: any) {
     this.type = type;
     this.supported_distros = supported_distros;
     this.data = {};
     this.uuid = uuidv4();
-  }
-
-  public getType(): string {
-    return this.type;
-  }
-
-  public getUuid(): string {
-    return this.uuid;
-  }
-
-  public getSupportedDistros(): Array<string> {
-    return this.supported_distros;
   }
 
   public getData(): any {
