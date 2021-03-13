@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Section } from './datatype/datatypes';
+import { Section, UsersSection } from './datatype/datatypes';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,13 @@ export class AppComponent {
 
   addNewSection(type: string) {
     // TODO create a section of the appropriate type
-    let section = new Section(type, ["all"]);
+    let section: Section;
+    if (type == "users") {
+      section = new UsersSection();
+    }
+    else {
+      section = new Section(type, ["all"]);
+    }
     this.sections.push(section);
     this.openSection(section);
   }

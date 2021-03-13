@@ -1,5 +1,6 @@
 import { dump, DumpOptions } from 'js-yaml';
 import { v4 as uuidv4 } from 'uuid';
+import { Property, PropertyGroup } from './property';
 
 export class Section {
   private type: string;
@@ -66,5 +67,20 @@ export function getAllSupportedDistros(sections: Array<Section> | Section): Arra
       section.getSupportedDistros().forEach((v) => { cumulativeDistros.add(v) });
     }
     return Array.from(cumulativeDistros)
+  }
+}
+
+export class SectionData {
+  // for some reason, declaring the new PropertyGroup() here does not work
+  protected _propertyData!: PropertyGroup;
+
+  getPropertyData(): PropertyGroup {
+    if (!this._propertyData) this._propertyData = new PropertyGroup();
+    return this._propertyData;
+  }
+
+  addPropertyData(newData: Property) {
+    if (!this._propertyData) this._propertyData = new PropertyGroup();
+    this._propertyData.add(newData);
   }
 }

@@ -1,5 +1,6 @@
-import { Section } from './section';
+import { Section, SectionData } from './section';
 import { Property } from './property';
+import { propertyData } from '../utils';
 
 // DEFINITION: https://cloudinit.readthedocs.io/en/latest/topics/modules.html#users-and-groups
 export class UsersSection extends Section {
@@ -15,14 +16,15 @@ export class UsersSection extends Section {
     return this.keepDefault ? ["default", ...this.data] : this.data;
   }
 
-  public addUser(name: string): void {
-    this.data.append({ name });
+  public addUser(user: User): void {
+    this.data.append(user);
   }
 }
 
-class User {
+class User extends SectionData {
   // TODO use decorators to store defaults and description (for tooltip)
-  name: string = "";          // The user’s login name
+  @propertyData("", "The user’s login name", false)
+  name: string = "";
   expiredate?: string | Date; // Optional. Date on which the user’s account will be disabled. Default: none
   gekos?: string;             // Optional. Comment about the user, usually a comma-separated string of real name and contact information. Default: none
   groups?: string; // Optional. Comma separated list of additional groups to add the user to. Default: none
