@@ -1,5 +1,5 @@
-import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Output, Type, ViewChild } from '@angular/core';
-import { Section, ISectionComponent, SectionComponent } from '../sections';
+import { Component, ComponentFactoryResolver, EventEmitter, Input, Output, Type, ViewChild } from '@angular/core';
+import { Section, ISectionComponent } from '../sections';
 import { EditorDirective } from './editor.directive';
 
 @Component({
@@ -7,25 +7,17 @@ import { EditorDirective } from './editor.directive';
   templateUrl: './section-editor.component.html',
   styleUrls: ['./section-editor.component.scss']
 })
-export class SectionEditorComponent implements OnInit {
+export class SectionEditorComponent {
   private _section: Section | undefined;
   private _component!: Type<ISectionComponent>;
   get component(): Type<ISectionComponent> { return this._component }
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
-  ngOnInit() {
-    // this._component = SectionComponent;
-    // console.log(this.editorHost);
-    // this.loadComponent();
-  }
-
   @ViewChild(EditorDirective, { static: true }) editorHost!: EditorDirective;
-  // @ViewChild(EditorDirective) editorHost!: EditorDirective;
   @Output() saveSection = new EventEmitter<Section>()
   @Input()
   set section(s: Section | undefined) {
-    console.log("editor's section has changed to [" + s?.uuid + "]")
     this._section = s;
     if (s) {
       this._component = s.component;
@@ -40,8 +32,6 @@ export class SectionEditorComponent implements OnInit {
 
   loadComponent() {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this._component);
-
-    console.log("editorHost:", this.editorHost);
 
     const viewContainerRef = this.editorHost.viewContainerRef;
     viewContainerRef.clear();

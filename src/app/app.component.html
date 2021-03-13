@@ -12,7 +12,7 @@
                         [editingSection]="editingSection"></app-section-list>
     </div>
     <div class="col">
-      settings
+      Editor
       <app-section-editor *ngIf="editingSection" [section]="editingSection" (saveSection)="saveSection($event)"></app-section-editor>
     </div>
     <div class="col">
