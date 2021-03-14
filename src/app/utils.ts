@@ -5,7 +5,7 @@ import { Section, SectionData } from './sections/section';
 // Decorator for section properties
 export function propertyData(default_value: any, description: string, optional: boolean = true, mut_exclusive: Array<string> = []) {
   return function (target: SectionData | any, propertyKey: string) {
-    console.log(target, propertyKey, (target)[propertyKey]); //DEBUG
+    // console.log(target, propertyKey, (target)[propertyKey]); //DEBUG
     let newProp = new Property(typeof (target)[propertyKey], propertyKey, default_value, description, optional, mut_exclusive);
     target.addPropertyData(newProp);
   }
