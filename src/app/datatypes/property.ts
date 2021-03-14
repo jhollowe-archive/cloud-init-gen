@@ -1,5 +1,6 @@
 export class Property {
   constructor(
+    public type: string,
     public name: string,
     public default_value: any,
     public description: string = "",
@@ -21,6 +22,18 @@ export class PropertyGroup {
 
   public getAll(): Array<Property> {
     return this._properties;
+  }
+
+  public getAllByType(): Object {
+    let returnObj: any = {};
+    this._properties.forEach(val => {
+      if (returnObj[val.type]) {
+        returnObj[val.type].push(val)
+      } else {
+        returnObj[val.type] = [val]
+      }
+    });
+    return returnObj;
   }
 
   public getProp(name: string): Property | undefined {
