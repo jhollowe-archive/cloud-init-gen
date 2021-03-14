@@ -1,0 +1,9 @@
+<h4>Packages</h4>
+
+Section: {{section.type}}
+<div *ngIf="props">
+  <div *ngFor="let prop of props">
+    {{prop.name}}: {{prop.type}}
+  </div>
+</div>
+<!-- <mat-checkbox></mat-checkbox> -->

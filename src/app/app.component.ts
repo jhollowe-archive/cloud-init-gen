@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Section, UsersSection } from './sections';
+import { PackagesSection, Section, UsersSection } from './sections';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { Section, UsersSection } from './sections';
 })
 export class AppComponent {
 
-  sections = [new Section("test", ["all"]), new UsersSection()];
+  sections = [new PackagesSection(), new UsersSection(), new Section("test", ["all"])];
   types = ["users", "groups", "apt"]; // TODO somehow dynamically pull types of all available sections
   editingSection: Section | undefined = this.sections[0];
 

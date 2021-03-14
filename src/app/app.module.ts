@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { SectionEditorComponent } from './section-editor/section-editor.component';
 import { EditorDirective } from './section-editor/editor.directive';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { EditorDirective } from './section-editor/editor.directive';
     BrowserAnimationsModule,
     DragDropModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
