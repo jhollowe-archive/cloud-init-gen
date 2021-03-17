@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { FinalMessageSection } from '../section/final-message.section';
 import { ISection } from '../section/interface.section';
+import { ListingService } from './listing.service';
 
 
 
@@ -12,8 +14,12 @@ import { ISection } from '../section/interface.section';
 })
 export class SectionService {
 
+  constructor(private listingService: ListingService) { }
+
   private _sections: ISection[] = [];
   private _active?: ISection;
+
+  testData = [new FinalMessageSection(this.listingService)];
 
   /**
    * @returns an observable of all the sections in the store

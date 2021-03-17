@@ -8,6 +8,10 @@ import { InfoComponent } from './component/info/info.component';
 import { EditorComponent } from './component/editor/editor.component';
 import { SelectorComponent } from './component/selector/selector.component';
 import { YamlComponent } from './component/yaml/yaml.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { YamlComponent } from './component/yaml/yaml.component';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DragDropModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

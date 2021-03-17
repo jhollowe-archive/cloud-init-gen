@@ -1,6 +1,6 @@
 import { Type } from "@angular/core";
 import { uuid } from "../datatype";
-import { ISectionComponent } from "./component/interface.section-component";
+import { ISectionComponent } from "./component/interface.component";
 
 export interface ISection {
   // The component to dynamically load for editing this section
