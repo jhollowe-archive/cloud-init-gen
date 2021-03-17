@@ -12,6 +12,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FinalMessageComponent } from './section/component/final-message/final-message.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     InfoComponent,
     EditorComponent,
     SelectorComponent,
-    YamlComponent
+    YamlComponent,
+    FinalMessageComponent
   ],
   imports: [
     BrowserModule,
