@@ -1,5 +1,6 @@
+import { templateJitUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of, Subscriber } from 'rxjs';
 import { FinalMessageSection } from '../section/final-message.section';
 import { ISection } from '../section/interface.section';
 import { ListingService } from './listing.service';
@@ -14,18 +15,21 @@ import { ListingService } from './listing.service';
 })
 export class SectionService {
 
-  constructor(private listingService: ListingService) { }
+  constructor(private listingService: ListingService) {
+    // default example data
+    this._sections = [new FinalMessageSection(this.listingService), new FinalMessageSection(this.listingService)];
+    this._active = new Emitter(this._sections[0]);
+  }
 
   private _sections: ISection[] = [];
-  private _active?: ISection;
+  private _active!: Emitter<ISection | undefined>;
 
-  testData = [new FinalMessageSection(this.listingService)];
 
   /**
    * @returns an observable of all the sections in the store
    */
   getSections(): Observable<ISection[]> {
-    return new Observable(observer => { observer.next(this._sections) });
+    return of(this._sections);
   }
 
   /**
@@ -33,19 +37,22 @@ export class SectionService {
    * @param type the type string used to select the Section type
    */
   createSection(type: string): void {
-    // TODO get type to section mapping from the ListingService
-    // TODO create new section and add to section store
-    // TODO notify subscribers of change
+    let serviceType = this.listingService.getType(type);
+    if (serviceType) {
+      let section = new serviceType();
+      this._sections.push(section);
+      this._active.emit(section);
+    }
   }
 
   /**
-   * Adds arbetrary Sections to the section store
+   * Adds arbitrary Sections to the section store
    *
    * @param section the section to add
    */
   addSection(section: ISection): void {
     this._sections.push(section);
-    // TODO notify subscribers of change
+    this._active.emit(section);
   }
 
   /**
@@ -56,21 +63,49 @@ export class SectionService {
   removeSection(section: ISection): void {
     let i = this._sections.indexOf(section);
     this._sections.splice(i, 1);
-    // TODO update active section
-    // TODO notify subscribers of change
+    this._active.emit(this._sections[0]);
   }
 
   selectSection(s: ISection | undefined): void {
     // ensure section is in store or is being unset
     if (typeof s == "undefined" || this._sections.includes(s)) {
-      this._active = s;
-      // TODO notify subscribers of change
+      console.log("selecting: ", s?.uuid);
+      this._active.emit(s);
     }
   }
 
 
   getActiveSection(): Observable<ISection | undefined> {
-    // TODO
-    return new Observable(observer => { observer.next(this._active) });
+    return this._active.get();
+  }
+}
+
+class Emitter<T>{
+  private subs: Array<Subscriber<T>> = [];
+  private obs: Observable<T>;
+  private lastVal: T;
+
+  constructor(initialValue: T) {
+    this.obs = new Observable(observer => {
+      this.subs.push(observer);
+      observer.next(initialValue);
+      return () => { this.subs.splice(this.subs.indexOf(observer), 1) }
+    });
+    this.lastVal = initialValue;
+  }
+
+  get() {
+    return this.obs;
+  }
+
+  emit(value: T) {
+    for (let sub of this.subs) {
+      sub.next(value);
+    }
+    this.lastVal = value;
+  }
+
+  getLast(): T {
+    return this.lastVal;
   }
 }

@@ -51,6 +51,6 @@ export class ListingService {
 
   constructor() {
     // DEBUG
-    this._map["final-message"] = FinalMessageSection;
+    this._map["Final Message"] = FinalMessageSection;
   }
 }

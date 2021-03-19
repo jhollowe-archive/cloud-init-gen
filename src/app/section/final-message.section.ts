@@ -1,20 +1,21 @@
 import { Type } from "@angular/core";
+import { dump, DumpOptions } from "js-yaml";
 import { ListingService } from "../service/listing.service";
+import { shortUuid } from "../util";
 import { Section } from "./base.section";
 import { FinalMessageComponent } from "./component/final-message/final-message.component";
 import { ISectionComponent } from "./component/interface.component";
 
-export const type: string = "final-message";
 
 export class FinalMessageSection extends Section {
   component: Type<ISectionComponent> = FinalMessageComponent;
 
-  type = type;
+  type = "Final Message";
   private message = "";
 
 
-  getYaml(verbose?: boolean): string {
-    throw new Error("Method not implemented.");
+  getYaml(verbose?: boolean, opts?: DumpOptions): string {
+    return dump({ final_message: this.message }, opts);
   }
 
   constructor(private listingService: ListingService) {
@@ -22,6 +23,6 @@ export class FinalMessageSection extends Section {
     // this.listingService.register(this.type, FinalMessageSection);
 
     // DEBUG
-    this.message = `Hello from ${this.uuid}`
+    this.message = `Hello from ${shortUuid(this.uuid)}`
   }
 }
