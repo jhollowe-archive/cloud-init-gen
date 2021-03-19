@@ -1,6 +1,6 @@
-import { templateJitUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable, of, Subscriber } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { FinalMessageSection } from '../section/final-message.section';
 import { ISection } from '../section/interface.section';
 import { ListingService } from './listing.service';
@@ -17,19 +17,32 @@ export class SectionService {
 
   constructor(private listingService: ListingService) {
     // default example data
-    this._sections = [new FinalMessageSection(this.listingService), new FinalMessageSection(this.listingService)];
-    this._active = new Emitter(this._sections[0]);
+    this.sectionEmitter = new Emitter([new FinalMessageSection(this.listingService), new FinalMessageSection(this.listingService)]);
+    this._sections = this.sectionEmitter.getLast();
+    this.active = new Emitter(this.sections[0]);
+  }
+
+  private get sections(): ISection[] {
+    // console.log("getting sections", this._sections);
+    return this._sections;
+  };
+  private set sections(value: ISection[]) {
+    // console.log("setting sections to", value);
+    this._sections = value;
+    this.sectionEmitter.emit(value);
   }
 
   private _sections: ISection[] = [];
-  private _active!: Emitter<ISection | undefined>;
+  private sectionEmitter!: Emitter<ISection[]>;
+  private active!: Emitter<ISection | undefined>;
 
 
   /**
    * @returns an observable of all the sections in the store
    */
   getSections(): Observable<ISection[]> {
-    return of(this._sections);
+    // return of(this._sections);
+    return this.sectionEmitter.get();
   }
 
   /**
@@ -40,8 +53,9 @@ export class SectionService {
     let serviceType = this.listingService.getType(type);
     if (serviceType) {
       let section = new serviceType();
-      this._sections.push(section);
-      this._active.emit(section);
+      // can't use in-place function with accessors (push)
+      this.sections = [...this.sections, section];
+      this.active.emit(section);
     }
   }
 
@@ -51,8 +65,9 @@ export class SectionService {
    * @param section the section to add
    */
   addSection(section: ISection): void {
-    this._sections.push(section);
-    this._active.emit(section);
+    // can't use in-place function with accessors (push)
+    this.sections = [...this.sections, section];
+    this.active.emit(section);
   }
 
   /**
@@ -61,21 +76,41 @@ export class SectionService {
    * @param section section to remove from Section store
    */
   removeSection(section: ISection): void {
-    let i = this._sections.indexOf(section);
-    this._sections.splice(i, 1);
-    this._active.emit(this._sections[0]);
+    // can't use in-place function with accessors (splice)
+    this.sections = this.sections.filter(val => val != section);
+    this.active.emit(this.sections[0]);
   }
 
+  /**
+   * Sets a Section as the active section
+   * @param s section to set
+   */
   selectSection(s: ISection | undefined): void {
     // ensure section is in store or is being unset
-    if (typeof s == "undefined" || this._sections.includes(s)) {
-      this._active.emit(s);
+    if (typeof s == "undefined" || this.sections.includes(s)) {
+      this.active.emit(s);
     }
   }
 
 
+  /**
+   * Get the active Section
+   *
+   * @returns an observable of the active section
+   */
   getActiveSection(): Observable<ISection | undefined> {
-    return this._active.get();
+    return this.active.get();
+  }
+
+  /**
+   * Get only the types of sections that do not already exist
+   * @returns {string[]} all types that have are not instantiated
+   */
+  getAllUnusedTypes(): Observable<string[]> {
+    return this.getSections().pipe(map(sections => {
+      let usedTypes = sections.map(section => section.type);
+      return this.listingService.getAllTypes().filter(val => !usedTypes.includes(val));
+    }));
   }
 }
 
@@ -99,6 +134,7 @@ class Emitter<T>{
 
   emit(value: T) {
     for (let sub of this.subs) {
+      // console.log("emitting value to", value, sub);
       sub.next(value);
     }
     this.lastVal = value;

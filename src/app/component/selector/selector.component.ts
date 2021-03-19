@@ -21,7 +21,7 @@ export class SelectorComponent implements OnInit {
   ngOnInit(): void {
     this.sectionService.getSections().subscribe(sections => this.sections = sections);
     this.sectionService.getActiveSection().subscribe(section => this.activeSection = section);
-    this.types = this.listingService.getAllTypes();
+    this.sectionService.getAllUnusedTypes().subscribe(types => this.types = types);
   }
 
   select(event: MouseEvent, s: ISection) {
@@ -41,6 +41,7 @@ export class SelectorComponent implements OnInit {
 
   add() {
     this.sectionService.createSection(this.selectedType);
+    this.selectedType = "";
   }
 
 }
