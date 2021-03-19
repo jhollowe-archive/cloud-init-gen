@@ -69,7 +69,6 @@ export class SectionService {
   selectSection(s: ISection | undefined): void {
     // ensure section is in store or is being unset
     if (typeof s == "undefined" || this._sections.includes(s)) {
-      console.log("selecting: ", s?.uuid);
       this._active.emit(s);
     }
   }
