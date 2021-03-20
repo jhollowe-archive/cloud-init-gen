@@ -1,4 +1,6 @@
-<hr>
-<pre>
-<code id="yaml-box" class="lang-yaml">{{output}}</code>
-</pre>
+<h5>Output</h5>
+<div>
+  <mat-checkbox [(ngModel)]="verbose" matTooltip="Verbose mode exports all properties of sections using their default value">Verbose?</mat-checkbox>
+  {{verbose}}
+</div>
+<pre><code class="lang-yaml" [highlight]="output" [lineNumbers]="true"></code></pre>
