@@ -114,6 +114,7 @@ export class SectionService {
   }
 }
 
+// TODO convert to Subject? (https://rxjs-dev.firebaseapp.com/guide/subject)
 class Emitter<T>{
   private subs: Array<Subscriber<T>> = [];
   private obs: Observable<T>;
@@ -133,10 +134,7 @@ class Emitter<T>{
   }
 
   emit(value: T) {
-    for (let sub of this.subs) {
-      // console.log("emitting value to", value, sub);
-      sub.next(value);
-    }
+    this.subs.forEach(sub => sub.next(value));
     this.lastVal = value;
   }
 
