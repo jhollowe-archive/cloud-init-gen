@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ISection } from 'src/app/section';
+import { SectionService } from 'src/app/service';
 
 @Component({
   selector: 'app-editor',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditorComponent implements OnInit {
 
-  constructor() { }
+  section!: ISection | undefined;
+
+  constructor(private sectionService: SectionService) {
+    this.sectionService.getActiveSection().subscribe(section => this.section = section);
+  }
 
   ngOnInit(): void {
   }

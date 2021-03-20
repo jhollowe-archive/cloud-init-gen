@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ListingService } from 'src/app/service';
 
 @Component({
   selector: 'app-info',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InfoComponent implements OnInit {
 
-  constructor() { }
+  constructor(private listingService: ListingService) { }
+
+  numTypes!: number;
 
   ngOnInit(): void {
+    this.numTypes = this.listingService.getAllTypes().length;
   }
 
 }

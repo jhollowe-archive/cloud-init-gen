@@ -37,6 +37,7 @@ export class SelectorComponent implements OnInit {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.sections, event.previousIndex, event.currentIndex);
+    // TODO update order in sectionService
   }
 
   add() {

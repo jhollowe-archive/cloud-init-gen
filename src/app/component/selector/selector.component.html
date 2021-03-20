@@ -1,5 +1,6 @@
+<h5>Sections</h5>
 <div cdkDropList class="section-list" (cdkDropListDropped)="drop($event)">
-  <div class="section-list-box" *ngFor="let section of sections" cdkDrag cdkDragLockAxis="y" (click)="select($event, section)" [ngClass]="{'current-section': section == activeSection}">
+  <div class="section-list-box" *ngFor="let section of sections" cdkDrag cdkDragLockAxis="y" (click)="select($event, section)" [class.current-section]="section == activeSection">
     <span>{{section.getTitle()}}</span>
     <div class="box-controls">
       <div class="cursor-pointer" (click)="delete(section)">
