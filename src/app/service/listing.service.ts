@@ -10,6 +10,11 @@ export class ListingService {
 
   private _map: sectionMapping = {};
 
+  constructor() {
+    // DEBUG
+    this._map['Final Message'] = FinalMessageSection;
+  }
+
   /**
    * creates a mapping of a string to a Type of a section
    *
@@ -26,7 +31,7 @@ export class ListingService {
    * @param classType a Type of a Section
    */
   registerFromType(classType: Type<ISection>): void {
-    let typeString = (new classType()).type;
+    const typeString = (new classType()).type;
     this.register(typeString, classType);
   }
 
@@ -47,10 +52,5 @@ export class ListingService {
    */
   getAllTypes(): string[] {
     return Object.keys(this._map);
-  }
-
-  constructor() {
-    // DEBUG
-    this._map["Final Message"] = FinalMessageSection;
   }
 }

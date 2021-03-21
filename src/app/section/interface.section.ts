@@ -1,7 +1,7 @@
-import { Type } from "@angular/core";
-import { DumpOptions } from "js-yaml";
-import { uuid } from "../datatype";
-import { ISectionComponent } from "./component/interface.component";
+import { Type } from '@angular/core';
+import { DumpOptions } from 'js-yaml';
+import { uuid } from '../datatype';
+import { ISectionComponent } from './component/interface.component';
 
 export interface ISection {
   // The component to dynamically load for editing this section

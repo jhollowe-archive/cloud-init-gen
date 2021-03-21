@@ -8,9 +8,9 @@ import { ListingService } from 'src/app/service';
 })
 export class InfoComponent implements OnInit {
 
-  constructor(private listingService: ListingService) { }
-
   numTypes!: number;
+
+  constructor(private listingService: ListingService) { }
 
   ngOnInit(): void {
     this.numTypes = this.listingService.getAllTypes().length;

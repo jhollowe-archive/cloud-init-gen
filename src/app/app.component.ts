@@ -7,7 +7,7 @@ import { MatTooltipDefaultOptions, MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/
   styleUrls: ['./app.component.scss'],
   providers: [{
     provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
-    useValue: <MatTooltipDefaultOptions>{ position: "after" }
+    useValue: { position: 'after' } as MatTooltipDefaultOptions
   }]
 })
 export class AppComponent {

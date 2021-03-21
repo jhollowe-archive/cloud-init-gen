@@ -1,5 +1,6 @@
 import { uuid } from '../datatype';
 
-export function shortUuid(uuid: uuid): string {
-  return uuid.split("-")[0];
+// eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+export function shortUuid(u: uuid): string {
+  return u.split('-')[0];
 }

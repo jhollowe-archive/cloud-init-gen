@@ -15,6 +15,10 @@ import { ListingService } from './listing.service';
 })
 export class SectionService {
 
+  private _sections: ISection[] = [];
+  private sectionEmitter!: Emitter<ISection[]>;
+  private active!: Emitter<ISection | undefined>;
+
   constructor(private listingService: ListingService) {
     // default example data
     this.sectionEmitter = new Emitter([new FinalMessageSection(this.listingService), new FinalMessageSection(this.listingService)]);
@@ -32,9 +36,6 @@ export class SectionService {
     this.sectionEmitter.emit(value);
   }
 
-  private _sections: ISection[] = [];
-  private sectionEmitter!: Emitter<ISection[]>;
-  private active!: Emitter<ISection | undefined>;
 
 
   /**
@@ -47,12 +48,13 @@ export class SectionService {
 
   /**
    * Creates a new, empty Section of `type` to the stored Sections
+   *
    * @param type the type string used to select the Section type
    */
   createSection(type: string): void {
-    let serviceType = this.listingService.getType(type);
+    const serviceType = this.listingService.getType(type);
     if (serviceType) {
-      let section = new serviceType();
+      const section = new serviceType();
       // can't use in-place function with accessors (push)
       this.sections = [...this.sections, section];
       this.active.emit(section);
@@ -77,17 +79,18 @@ export class SectionService {
    */
   removeSection(section: ISection): void {
     // can't use in-place function with accessors (splice)
-    this.sections = this.sections.filter(val => val != section);
+    this.sections = this.sections.filter(val => val !== section);
     this.active.emit(this.sections[0]);
   }
 
   /**
    * Sets a Section as the active section
+   *
    * @param s section to set
    */
   selectSection(s: ISection | undefined): void {
     // ensure section is in store or is being unset
-    if (typeof s == "undefined" || this.sections.includes(s)) {
+    if (typeof s == 'undefined' || this.sections.includes(s)) {
       this.active.emit(s);
     }
   }
@@ -104,11 +107,12 @@ export class SectionService {
 
   /**
    * Get only the types of sections that do not already exist
-   * @returns {string[]} all types that have are not instantiated
+   *
+   * @returns all types that have are not instantiated
    */
   getAllUnusedTypes(): Observable<string[]> {
     return this.getSections().pipe(map(sections => {
-      let usedTypes = sections.map(section => section.type);
+      const usedTypes = sections.map(section => section.type);
       return this.listingService.getAllTypes().filter(val => !usedTypes.includes(val));
     }));
   }
@@ -124,7 +128,7 @@ class Emitter<T>{
     this.obs = new Observable(observer => {
       this.subs.push(observer);
       observer.next(initialValue);
-      return () => { this.subs.splice(this.subs.indexOf(observer), 1) }
+      return () => { this.subs.splice(this.subs.indexOf(observer), 1); };
     });
     this.lastVal = initialValue;
   }

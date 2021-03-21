@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Type } from '@angular/core';
 import { ISection } from '../section';
 
