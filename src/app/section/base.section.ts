@@ -20,7 +20,7 @@ export abstract class Section implements ISection {
     return `${this.type}[${shortUuid(this.uuid)}]`;
   }
 
-  yamlHelper(obj: any, opts?: DumpOptions): string {
-    return dump(obj, opts);
-  }
+  // yamlHelper(obj: any, opts?: DumpOptions): string {
+  //   return dump(obj, opts);
+  // }
 }

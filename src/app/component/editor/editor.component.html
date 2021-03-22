@@ -1,2 +1,3 @@
 <h5>Editor</h5>
-{{section?.uuid}}
+<div *ngIf="section">{{ section.type }} [{{ section.uuid.split("-")[0] }}]</div>
+<ng-template editorHost></ng-template>

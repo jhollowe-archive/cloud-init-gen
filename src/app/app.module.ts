@@ -16,6 +16,7 @@ import { EditorComponent } from './component/editor/editor.component';
 import { SelectorComponent } from './component/selector/selector.component';
 import { YamlComponent } from './component/yaml/yaml.component';
 import { FinalMessageComponent } from './section/component/final-message/final-message.component';
+import { EditorDirective } from './component/editor/editor.directive';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { FinalMessageComponent } from './section/component/final-message/final-m
     EditorComponent,
     SelectorComponent,
     YamlComponent,
+    EditorDirective,
     FinalMessageComponent
   ],
   imports: [
