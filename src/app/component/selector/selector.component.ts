@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ISection, Section } from '../../section';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ISection } from '../../section';
 import { ListingService, SectionService } from '../../service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-selector',
   templateUrl: './selector.component.html',
   styleUrls: ['./selector.component.scss']
 })
-export class SelectorComponent implements OnInit {
+export class SelectorComponent implements OnInit, OnDestroy {
 
   constructor(private sectionService: SectionService, private listingService: ListingService) { }
 
@@ -16,12 +17,22 @@ export class SelectorComponent implements OnInit {
   activeSection?: ISection;
   selectedType!: string;
   types!: string[];
+  _cleanup: Subscription[] = [];
 
 
   ngOnInit(): void {
-    this.sectionService.getSections().subscribe(sections => this.sections = sections);
-    this.sectionService.getActiveSection().subscribe(section => this.activeSection = section);
-    this.sectionService.getAllUnusedTypes().subscribe(types => this.types = types);
+    // keep track of all subscriptions so they can be freed on destruction of this component
+    this._cleanup = [
+    this.sectionService.getSections().subscribe(sections => this.sections = sections),
+    this.sectionService.getActiveSection().subscribe(section => this.activeSection = section),
+    // this.sectionService.getAllUnusedTypes().subscribe(types => this.types = types));
+    ];
+    // DEBUG
+    this.types = this.listingService.getAllTypes();
+  }
+
+  ngOnDestroy(): void {
+    this._cleanup.forEach(sub => sub.unsubscribe());
   }
 
   select(event: MouseEvent, s: ISection) {
