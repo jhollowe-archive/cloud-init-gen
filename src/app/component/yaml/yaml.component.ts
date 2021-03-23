@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DumpOptions } from 'js-yaml';
 import { SectionService } from 'src/app/service';
-import * as hljs from 'highlight.js';
 import { HIGHLIGHT_OPTIONS, HighlightOptions } from "ngx-highlightjs";
+import { getAllSupportedDistros, getTotalSupportedDistros } from 'src/app/util';
+import * as hljs from 'highlight.js';
 // import yamlLang from 'highlight.js/lib/languages/yaml';
 
 @Component({
@@ -23,23 +24,25 @@ export class YamlComponent implements OnInit {
   output: string = "";
   verbose: boolean = false;
 
+  allDistros!: string[];
+  totalDistros!: string[];
+
   formatOptions: DumpOptions = { quotingType: '"' };
 
   constructor(private sectionService: SectionService) { }
 
   ngOnInit(): void {
     this.sectionService.getSections().subscribe(sections => {
+      // DEBUG
       console.log("Updating YAML output");
-      // reset the code element from
-      // let elem = document.getElementById("yaml-box")
-      // if (elem) {
-      //   elem.innerHTML = `<code class="lang - yaml">{{output}}</code>`;
-      // }
+
+      this.allDistros = getAllSupportedDistros(sections);
+      this.totalDistros = getTotalSupportedDistros(sections);
+
       this.output = "";
       for (let section of sections) {
         this.output += section.getYaml(this.verbose, this.formatOptions);
       }
-      // hljs.highlightAll();
     });
   }
 

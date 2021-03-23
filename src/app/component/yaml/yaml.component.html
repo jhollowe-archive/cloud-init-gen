@@ -1,6 +1,22 @@
 <h5>Output</h5>
 <div>
-  <mat-checkbox [(ngModel)]="verbose" matTooltip="Verbose mode exports all properties of sections using their default value">Verbose?</mat-checkbox>
-  {{verbose}}
+  <mat-checkbox
+    [(ngModel)]="verbose"
+    matTooltip="Verbose mode exports all properties of sections using their default value"
+    >Verbose?</mat-checkbox
+  >
 </div>
 <pre><code class="lang-yaml" [highlight]="output" [lineNumbers]="true"></code></pre>
+
+<div class="distro-info">
+  <div
+    matTooltip="These distro(s) will have all actions take place, but some actions may run on more distros"
+  >
+    Total Supported Distro(s): {{ totalDistros.join(", ") }}
+  </div>
+  <div
+    matTooltip="These are all the supported distro(s), but some sections might not support every distro"
+  >
+    All Supported Distro(s): {{ allDistros.join(", ") }}
+  </div>
+</div>

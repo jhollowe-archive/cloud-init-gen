@@ -16,6 +16,9 @@ export interface ISection {
   /** A unique identifier of this section */
   readonly uuid: uuid;
 
+  /** Describes what distributions support this type of section */
+  readonly supportedDistros: string[];
+
   /**
    * Used to get a YAML representation of this section.
    * If verbose is true, all properties of the section are included with their default values
