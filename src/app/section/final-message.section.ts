@@ -3,7 +3,7 @@ import { dump, DumpOptions } from "js-yaml";
 import { ListingService } from "../service/listing.service";
 import { shortUuid } from "../util";
 import { Section } from "./base.section";
-import { FinalMessageComponent } from "./component/final-message/final-message.component";
+import { FinalMessageComponent } from "./component";
 import { ISectionComponent } from "./component/interface.component";
 
 
