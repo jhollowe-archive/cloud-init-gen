@@ -1,7 +1,6 @@
 import { Injectable, Type } from '@angular/core';
 import { sectionMapping } from '../datatype';
 import { ISection } from '../section';
-import { FinalMessageSection } from '../section/final-message.section';
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +14,22 @@ export class ListingService {
    *
    * @param typeString the type string of the Section
    * @param classType the actual Type of the Section
+   * @param prettyType the human-readable name of the type of section
    */
-  register(typeString: string, classType: Type<ISection>): void {
-    this._map[typeString] = classType;
+  register(typeString: string, prettyType: string, classType: Type<ISection>): void {
+    this._map[typeString] = [prettyType, classType];
   }
 
   /**
-   * Uses a Type to automatically get the typeString and register the combination
+   * Uses a Type to automatically register the Type
+   *
+   * Automatically gets the typeString and prettyType from the Type (by instantiating it)
    *
    * @param classType a Type of a Section
    */
   registerFromType(classType: Type<ISection>): void {
-    let typeString = (new classType()).type;
-    this.register(typeString, classType);
+    let obj = new classType();
+    this.register(obj.type, obj.prettyType, classType);
   }
 
   /**
@@ -36,8 +38,18 @@ export class ListingService {
    * @param typeString the type to look up
    * @returns the true type of the Section
    */
-  getType(typeString: string) {
-    return this._map[typeString];
+  getType(typeString: string): Type<ISection> {
+    return this._map[typeString][1];
+  }
+
+  /**
+   * converts a typeString to an prettyType string
+   *
+   * @param typeString the type to look up
+   * @returns the human-readable name of the type of section
+   */
+  getPrettyType(typeString: string): string {
+    return this._map[typeString][0];
   }
 
   /**
@@ -49,8 +61,13 @@ export class ListingService {
     return Object.keys(this._map);
   }
 
-  constructor() {
-    // DEBUG
-    this._map["Final Message"] = FinalMessageSection;
+  /**
+   * Returns a string array of the prettyTypes of all the registered types of Sections
+   *
+   * @returns all prettyTypes of registered Sections
+   */
+  getAllPrettyTypes(): string[] {
+    new Array(this._map).map(val => val[0]);
+    return this.getAllTypes().map(type => this._map[type][0]);
   }
 }

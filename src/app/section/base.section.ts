@@ -6,10 +6,11 @@ import { shortUuid } from '../util';
 import { dump, DumpOptions } from "js-yaml";
 
 export abstract class Section implements ISection {
-  abstract component: Type<ISectionComponent>;
   abstract type: string;
+  abstract prettyType: string;
+  abstract component: Type<ISectionComponent>;
 
-  readonly uuid = uuidv4();
+  uuid = uuidv4();
 
   // a default function that should be overridden in each Section
   public getYaml(verbose?: boolean, opts?: DumpOptions): string {
@@ -20,7 +21,14 @@ export abstract class Section implements ISection {
     return `${this.type}[${shortUuid(this.uuid)}]`;
   }
 
-  // yamlHelper(obj: any, opts?: DumpOptions): string {
-  //   return dump(obj, opts);
-  // }
+  /**
+   * A wrapper for js-yaml.dump() so each subclass does not need to import js-yaml
+   *
+   * @param obj object to dump
+   * @param opts optional options for converting to YAML
+   * @returns YAML string representation of object
+   */
+  dumpYaml(obj: any, opts?: DumpOptions): string {
+    return dump(obj, opts);
+  }
 }

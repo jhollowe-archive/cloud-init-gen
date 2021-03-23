@@ -15,19 +15,19 @@ import { ListingService } from './listing.service';
 })
 export class SectionService {
 
+  // default example data
+  private startingSections = [new FinalMessageSection(), new FinalMessageSection()];
+
   constructor(private listingService: ListingService) {
-    // default example data
-    this.sectionEmitter = new Emitter([new FinalMessageSection(this.listingService), new FinalMessageSection(this.listingService)]);
+    this.sectionEmitter = new Emitter(this.startingSections);
     this._sections = this.sectionEmitter.getLast();
     this.active = new Emitter(this.sections[0]);
   }
 
   private get sections(): ISection[] {
-    // console.log("getting sections", this._sections);
     return this._sections;
   };
   private set sections(value: ISection[]) {
-    // console.log("setting sections to", value);
     this._sections = value;
     this.sectionEmitter.emit(value);
   }
@@ -41,7 +41,6 @@ export class SectionService {
    * @returns an observable of all the sections in the store
    */
   getSections(): Observable<ISection[]> {
-    // return of(this._sections);
     return this.sectionEmitter.get();
   }
 
