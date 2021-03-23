@@ -23,12 +23,12 @@ export class SelectorComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // keep track of all subscriptions so they can be freed on destruction of this component
     this._cleanup = [
-    this.sectionService.getSections().subscribe(sections => this.sections = sections),
-    this.sectionService.getActiveSection().subscribe(section => this.activeSection = section),
-    // this.sectionService.getAllUnusedTypes().subscribe(types => this.types = types));
+      this.sectionService.getSections().subscribe(sections => this.sections = sections),
+      this.sectionService.getActiveSection().subscribe(section => this.activeSection = section),
+      // this.sectionService.getAllUnusedPrettyTypes().subscribe(types => this.types = types)
     ];
     // DEBUG
-    this.types = this.listingService.getAllTypes();
+    this.types = this.listingService.getAllPrettyTypes();
   }
 
   ngOnDestroy(): void {

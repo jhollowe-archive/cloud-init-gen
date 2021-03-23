@@ -67,7 +67,6 @@ export class ListingService {
    * @returns all prettyTypes of registered Sections
    */
   getAllPrettyTypes(): string[] {
-    new Array(this._map).map(val => val[0]);
     return this.getAllTypes().map(type => this._map[type][0]);
   }
 }

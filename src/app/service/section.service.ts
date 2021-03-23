@@ -101,14 +101,31 @@ export class SectionService {
     return this.active.get();
   }
 
+  //============= ListingService-ish functions =============
+  // Due to circular dependencies, the following functions,
+  //  while they would organizationally fit better in
+  //  ListingService, are placed here
+  //=========================================================
+
   /**
    * Get only the types of sections that do not already exist
-   * @returns {string[]} all types that have are not instantiated
+   * @returns all types that have are not instantiated
    */
   getAllUnusedTypes(): Observable<string[]> {
     return this.getSections().pipe(map(sections => {
       let usedTypes = sections.map(section => section.type);
       return this.listingService.getAllTypes().filter(val => !usedTypes.includes(val));
+    }));
+  }
+
+  /**
+   * Get only the prettyTypes of sections that do not already exist
+   * @returns all prettyTypes that have are not instantiated
+   */
+  getAllUnusedPrettyTypes(): Observable<string[]> {
+    return this.getSections().pipe(map(sections => {
+      let usedTypes = sections.map(section => section.prettyType);
+      return this.listingService.getAllPrettyTypes().filter(val => !usedTypes.includes(val));
     }));
   }
 }

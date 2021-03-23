@@ -18,7 +18,7 @@ export abstract class Section implements ISection {
   }
 
   getTitle(): string {
-    return `${this.type}[${shortUuid(this.uuid)}]`;
+    return `${this.prettyType}[${shortUuid(this.uuid)}]`;
   }
 
   /**
