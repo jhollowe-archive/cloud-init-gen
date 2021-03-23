@@ -1,27 +1,34 @@
 <h5>Sections</h5>
 <div cdkDropList class="section-list" (cdkDropListDropped)="drop($event)">
-  <div class="section-list-box" *ngFor="let section of sections" cdkDrag cdkDragLockAxis="y" (click)="select($event, section)" [class.current-section]="section == activeSection">
-    <span>{{section.getTitle()}}</span>
-    <div class="box-controls">
-      <div class="cursor-pointer" (click)="delete(section)">
-        <i class="far fa-trash-alt"></i>
-      </div>
-      <div class="cursor-grab" cdkDragHandle>
-        <i class="fas fa-arrows-alt-v"></i>
-      </div>
-    </div>
-  </div>
+	<div
+		class="section-list-box"
+		*ngFor="let section of sections"
+		cdkDrag
+		cdkDragLockAxis="y"
+		(click)="select($event, section)"
+		[class.current-section]="section == activeSection"
+	>
+		<span>{{ section.getTitle() }}</span>
+		<div class="box-controls">
+			<div class="cursor-pointer" (click)="delete(section)">
+				<i class="far fa-trash-alt"></i>
+			</div>
+			<div class="cursor-grab" cdkDragHandle>
+				<i class="fas fa-arrows-alt-v"></i>
+			</div>
+		</div>
+	</div>
 </div>
 <div class="add-section">
-  <mat-form-field appearance="fill">
-    <mat-label>New Section...</mat-label>
-    <mat-select [(value)]="selectedType" name="section">
-      <mat-option>[Select a Section]</mat-option>
-      <mat-option *ngFor="let type of types" [value]="type">
-        {{type}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <!-- TODO style this to be vertically centered and right aligned -->
-  <button mat-raised-button [disabled]="!selectedType" (click)="add()">Add</button>
+	<mat-form-field appearance="fill">
+		<mat-label>New Section...</mat-label>
+		<mat-select [(value)]="selectedType" name="section">
+			<mat-option>[Select a Section]</mat-option>
+			<mat-option *ngFor="let type of types" [value]="type">
+				{{ type }}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<!-- TODO style this to be vertically centered and right aligned -->
+	<button mat-raised-button [disabled]="!selectedType" (click)="add()">Add</button>
 </div>

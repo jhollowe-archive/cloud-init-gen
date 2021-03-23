@@ -1,5 +1,5 @@
-import { uuid } from '../datatype';
+import {uuid} from '../datatype';
 
 export function shortUuid(uuid: uuid): string {
-  return uuid.split("-")[0];
+	return uuid.split('-')[0];
 }
